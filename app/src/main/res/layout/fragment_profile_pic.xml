@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#F2F1F7"
     android:textAlignment="center"
-    tools:context=".ProfilePic">
+    tools:context=".Profile">
 
 
     <Button
