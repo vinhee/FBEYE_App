@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1070770923949",
+    "project_id": "fbeye-f0067",
+    "storage_bucket": "fbeye-f0067.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1070770923949:android:72140a644a00fba4da1924",
+        "android_client_info": {
+          "package_name": "com.example.fbeyeapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCWzHZUChUXJ76O6x87KJwZQYtSZ3ktfCU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
