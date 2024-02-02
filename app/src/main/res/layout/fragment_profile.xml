@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F2F1F7"
-    android:textAlignment="center">
+    android:textAlignment="center"
+    tools:context=".ProfileFragment">
 
 
     <Button
@@ -35,7 +36,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textinputLayout2">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/EmailEditText"
+            android:id="@+id/StaffEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/baseline_email_24"
@@ -57,7 +58,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/NameEditText"
+            android:id="@+id/StaffName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/baseline_account_circle_24"
@@ -80,7 +81,7 @@
         app:layout_constraintTop_toBottomOf="@+id/uploadImage">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/StaffIDEditText"
+            android:id="@+id/StaffID"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/baseline_account_circle_24"
