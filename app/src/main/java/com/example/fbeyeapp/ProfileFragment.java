@@ -18,6 +18,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -58,6 +59,8 @@ public class ProfileFragment extends Fragment {
     TextView staffNameTextView;
     TextView staffEmailTextView;
 
+    Button logOut;
+
     Uri imagePath;
 
     public ProfileFragment() {
@@ -69,6 +72,17 @@ public class ProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         uploadImage = view.findViewById(R.id.uploadImage);
+        logOut = view.findViewById(R.id.logOutBtn);
+
+        logOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAuth.signOut();
+                Intent logOut = new Intent(getActivity(), LoginPage.class);
+                startActivity(logOut);
+                getActivity().finish();
+            }
+        });
 
         uploadImage.setOnClickListener(new View.OnClickListener() {
             @Override
