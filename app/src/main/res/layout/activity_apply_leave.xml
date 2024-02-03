@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".applyLeave"
+        android:background="#FFFFFF">
+
+        <TextView
+            android:id="@+id/absenceReason3"
+            android:layout_width="144dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="28dp"
+            android:text="Upload MC"
+            android:textSize="18dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textinputLayout6" />
+
+        <TextView
+            android:id="@+id/absenceReason"
+            android:layout_width="144dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="28dp"
+            android:text="End Date"
+            android:textSize="18dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/absenceReason2" />
+
+        <TextView
+            android:id="@+id/absenceReason2"
+            android:layout_width="144dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:text="Start Date"
+            android:textSize="18dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textinputLayout4" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="40dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="@color/darkBlue"
+            android:src="@drawable/baseline_arrow_back_ios_new_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="64dp"
+            android:text="Submit MC/Leave Request"
+            android:textSize="25dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.492"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/AbsenceReason"
+            android:layout_width="144dp"
+            android:layout_height="36dp"
+            android:layout_marginTop="44dp"
+            android:text="Medical Leave"
+            android:textSize="18dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.67"
+            app:layout_constraintStart_toEndOf="@+id/absenceReason5"
+            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+        <TextView
+            android:id="@+id/absenceReason5"
+            android:layout_width="144dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="44dp"
+            android:text="Absence Reason"
+            android:textSize="18dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textinputLayout3"
+            android:layout_width="360dp"
+            android:layout_height="59dp"
+            android:layout_marginTop="16dp"
+            android:hint="EmployeeID"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/absenceReason5">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/EmployeeID"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/baseline_account_circle_24"
+                android:drawablePadding="10dp"
+                android:text="1" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textinputLayout4"
+            android:layout_width="360dp"
+            android:layout_height="59dp"
+            android:layout_marginTop="24dp"
+            android:hint="Employee Name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textinputLayout3">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/Staff"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/baseline_account_circle_24"
+                android:drawablePadding="10dp"
+                android:text="taimoo" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/ApplyLeaveBtn"
+            android:layout_width="310dp"
+            android:layout_height="44dp"
+            android:layout_marginTop="64dp"
+            android:text="Submit"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/button2" />
+
+        <EditText
+            android:id="@+id/editTextDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:ems="10"
+            android:inputType="date"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.236"
+            app:layout_constraintStart_toEndOf="@+id/absenceReason"
+            app:layout_constraintTop_toBottomOf="@+id/textinputLayout4" />
+
+        <EditText
+            android:id="@+id/editTextDate3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:ems="10"
+            android:inputType="date"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.24"
+            app:layout_constraintStart_toEndOf="@+id/absenceReason"
+            app:layout_constraintTop_toBottomOf="@+id/editTextDate" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textinputLayout5"
+            android:layout_width="360dp"
+            android:layout_height="59dp"
+            android:layout_marginTop="24dp"
+            android:hint="MC No"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/absenceReason">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/mcNo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/baseline_account_circle_24"
+                android:drawablePadding="10dp"
+                android:text="17883" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textinputLayout6"
+            android:layout_width="360dp"
+            android:layout_height="59dp"
+            android:layout_marginTop="24dp"
+            android:hint="Name of Clinic/Hospital"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textinputLayout5">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/clinicName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/baseline_account_circle_24"
+                android:drawablePadding="10dp"
+                android:text="ManaDr" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="138dp"
+            android:layout_height="39dp"
+            android:layout_marginTop="24dp"
+            android:text="choose file"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.561"
+            app:layout_constraintStart_toEndOf="@+id/absenceReason3"
+            app:layout_constraintTop_toBottomOf="@+id/textinputLayout6" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
