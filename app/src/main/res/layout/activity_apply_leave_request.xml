@@ -4,22 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".applyLeave"
-        android:background="#FFFFFF">
-
-        <TextView
-            android:id="@+id/absenceReason3"
-            android:layout_width="144dp"
-            android:layout_height="36dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="28dp"
-            android:text="Upload MC"
-            android:textSize="18dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textinputLayout6" />
+        tools:context=".applyLeaveRequest"
+        android:background="@color/white">
 
         <TextView
             android:id="@+id/absenceReason"
@@ -59,11 +49,11 @@
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="64dp"
+            android:layout_marginTop="100dp"
             android:text="Submit MC/Leave Request"
             android:textSize="25dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.492"
+            app:layout_constraintHorizontal_bias="0.495"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -72,7 +62,7 @@
             android:layout_width="144dp"
             android:layout_height="36dp"
             android:layout_marginTop="44dp"
-            android:text="Medical Leave"
+            android:text="Leave Request"
             android:textSize="18dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.67"
@@ -129,14 +119,16 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
-            android:id="@+id/ApplyLeaveBtn"
+            android:id="@+id/button"
             android:layout_width="310dp"
             android:layout_height="44dp"
-            android:layout_marginTop="64dp"
+            android:layout_marginTop="32dp"
             android:text="Submit"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.495"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/button2" />
+            app:layout_constraintTop_toBottomOf="@+id/textinputLayout7" />
 
         <Button
             android:id="@+id/startDateButton"
@@ -172,54 +164,27 @@
             app:layout_constraintStart_toEndOf="@+id/absenceReason"
             app:layout_constraintTop_toBottomOf="@+id/startDateButton" />
 
+
+
+
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textinputLayout5"
+            android:id="@+id/textinputLayout7"
             android:layout_width="360dp"
             android:layout_height="59dp"
             android:layout_marginTop="24dp"
-            android:hint="MC No"
+            android:hint="Leave Reason"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/absenceReason">
+            app:layout_constraintTop_toBottomOf="@+id/endDateButton">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/mcNo"
+                android:id="@+id/leaveReason"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/baseline_account_circle_24"
                 android:drawablePadding="10dp"
-                android:text="17883" />
+                android:text="reason" />
         </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textinputLayout6"
-            android:layout_width="360dp"
-            android:layout_height="59dp"
-            android:layout_marginTop="24dp"
-            android:hint="Name of Clinic/Hospital"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textinputLayout5">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/clinicName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/baseline_account_circle_24"
-                android:drawablePadding="10dp"
-                android:text="ManaDr" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="138dp"
-            android:layout_height="39dp"
-            android:layout_marginTop="24dp"
-            android:text="choose file"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.561"
-            app:layout_constraintStart_toEndOf="@+id/absenceReason3"
-            app:layout_constraintTop_toBottomOf="@+id/textinputLayout6" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

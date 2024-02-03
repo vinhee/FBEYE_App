@@ -11,7 +11,7 @@ import android.widget.DatePicker;
 
 import java.util.Calendar;
 
-public class applyLeave extends AppCompatActivity {
+public class applyLeaveRequest extends AppCompatActivity {
     DatePickerDialog datePickerDialog;
     Button startDateBtn;
     Button endDateBtn;
@@ -27,8 +27,7 @@ public class applyLeave extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_apply_leave);
-        ApplyLeave = findViewById(R.id.ApplyLeaveBtn);
+        setContentView(R.layout.activity_apply_leave_request);
 
         startDateBtn = findViewById(R.id.startDateButton);
         endDateBtn = findViewById(R.id.endDateButton);
@@ -37,12 +36,6 @@ public class applyLeave extends AppCompatActivity {
         endDateBtn.setText(getTodaysDate()); // Initialize end date with today's date
         initDatePicker();
 
-        ApplyLeave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Add your logic for applying leave here
-            }
-        });
     }
 
     private String getTodaysDate() {

@@ -13,6 +13,7 @@ import android.widget.Button;
 public class HomeFragment extends Fragment {
 
     Button checkAttendance;
+    Button applyMCLeave;
     Button applyLeave;
 
     public HomeFragment() {
@@ -28,7 +29,10 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         checkAttendance = view.findViewById(R.id.checkAttendanceBtn);
+        applyMCLeave = view.findViewById(R.id.applyMcBtn);
         applyLeave = view.findViewById(R.id.applyLeaveBtn);
+
+
 
         checkAttendance.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -38,10 +42,18 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        applyLeave.setOnClickListener(new View.OnClickListener() {
+        applyMCLeave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent apply = new Intent(getActivity(), applyLeave.class);
+                startActivity(apply);
+            }
+        });
+
+        applyLeave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent apply = new Intent(getActivity(), applyLeaveRequest.class);
                 startActivity(apply);
             }
         });
