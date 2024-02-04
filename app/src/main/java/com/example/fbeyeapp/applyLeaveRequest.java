@@ -37,7 +37,7 @@ public class applyLeaveRequest extends AppCompatActivity {
 
     Button submitBtn;
     EditText leaveReason;
-
+    String department;
     // Separate variables for start and end dates
     String startDate;
     String endDate;
@@ -98,6 +98,7 @@ public class applyLeaveRequest extends AppCompatActivity {
                     employeeName = snapshot.child("Name").getValue(String.class);
                     // Add log statements to check if values are retrieved
                     Log.d("FirebaseData", "Employee Name: " + employeeName);
+                     department = snapshot.child("Department").getValue(String.class);
 
                     // Update references to TextInputEditText with TextViews
                     EditText employeeNameEditText = findViewById(R.id.employeeNameEditText);
@@ -127,23 +128,23 @@ public class applyLeaveRequest extends AppCompatActivity {
                 String leaveRequestId = "id" + (new Date()).getTime();
 
                 // Create an EmployeeLeave object
-                EmployeeLeave employeeLeave = new EmployeeLeave(leaveRequestId, employeeId, employeeName, startDate, endDate, leaveReasonText, absenceReason, currentDateTime, userID, "Pending");
+                EmployeeLeave employeeLeave = new EmployeeLeave(leaveRequestId, employeeId, employeeName, startDate, endDate, leaveReasonText, absenceReason, currentDateTime, userID, "Pending", department);
 
                 // Save the EmployeeLeave object to the database
                 databaseReference.child("EmployeeLeave").child(leaveRequestId).setValue(employeeLeave)
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Toast.makeText(getApplicationContext(), "Leave request submitted successfully", Toast.LENGTH_SHORT).show();
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(getApplicationContext(), "Failed to submit leave request", Toast.LENGTH_SHORT).show();
-                                Log.e("FirebaseError", "Error writing leave request to Firebase", e);
-                            }
-                        });
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(getApplicationContext(), "Leave request submitted successfully", Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(getApplicationContext(), "Failed to submit leave request", Toast.LENGTH_SHORT).show();
+                            Log.e("FirebaseError", "Error writing leave request to Firebase", e);
+                        }
+                    });
             }
         });
     }

@@ -11,6 +11,7 @@ public class EmployeeLeave {
     private String leaveReason;
     private TextView absenceReason;
     private String leaveID;
+    private String department;
 
     public String getLeaveRequestId() {
         return leaveRequestId;
@@ -104,7 +105,7 @@ public class EmployeeLeave {
     private String userID;
     private String approvalStatus;
 
-    public EmployeeLeave(String leaveID, Long employeeId, String employeeName, String startDate, String endDate, String leaveReason, TextView absenceReason, String submitDate, String userID, String approvalStatus) {
+    public EmployeeLeave(String leaveID, Long employeeId, String employeeName, String startDate, String endDate, String leaveReason, TextView absenceReason, String submitDate, String userID, String approvalStatus, String department) {
         this.leaveID = leaveID;
         this.employeeId = employeeId;
         this.employeeName = employeeName;
@@ -115,6 +116,7 @@ public class EmployeeLeave {
         this.submitDate = submitDate;
         this.userID = userID;
         this.approvalStatus = approvalStatus;
+        this.department = department;
     }
 
 
