@@ -2,6 +2,7 @@ package com.example.fbeyeapp;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -149,6 +150,13 @@ public class applyLeaveRequest extends AppCompatActivity {
                         @Override
                         public void onSuccess(Void aVoid) {
                             Toast.makeText(getApplicationContext(), "Leave request submitted successfully", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(applyLeaveRequest.this, MainActivity.class);
+                            intent.putExtra("fragmentToLoad", "HomeFragment"); // Pass the fragment to load
+                            startActivity(intent);
+
+                            // Finish the current activity
+                            finish();
+
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
