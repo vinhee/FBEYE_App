@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,6 +51,7 @@ public class applyLeaveRequest extends AppCompatActivity {
     FirebaseAuth mAuth;
     FirebaseUser currentUser;
     DatabaseReference databaseReference;
+    ImageView backBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +67,7 @@ public class applyLeaveRequest extends AppCompatActivity {
         submitBtn = findViewById(R.id.submitButton);
         absenceReason = findViewById(R.id.AbsenceReason);
         leaveReason = findViewById(R.id.leaveReason);
+        backBtn = findViewById(R.id.backBtn);
 
         startDateBtn.setText(getTodaysDate());
         endDateBtn.setText(getTodaysDate()); // Initialize end date with today's date
@@ -83,9 +86,11 @@ public class applyLeaveRequest extends AppCompatActivity {
                     if (employeeIdLong != null) {
                         // Convert the Long employeeId to String if needed
                         employeeId = Long.valueOf(String.valueOf(employeeIdLong));
+                        department = snapshot.child("Department").getValue(String.class);
 
                         // Add log statements to check if values are retrieved
                         Log.d("FirebaseData", "Employee ID: " + employeeId);
+                        Log.d("FirebaseData", "Department: " + department);
 
                         // Update references to TextInputEditText with TextViews
                         EditText employeeIDEditText = findViewById(R.id.employeeIDEditText);
@@ -99,7 +104,6 @@ public class applyLeaveRequest extends AppCompatActivity {
                     employeeName = snapshot.child("Name").getValue(String.class);
                     // Add log statements to check if values are retrieved
                     Log.d("FirebaseData", "Employee Name: " + employeeName);
-                     department = snapshot.child("Department").getValue(String.class);
 
                     // Update references to TextInputEditText with TextViews
                     EditText employeeNameEditText = findViewById(R.id.employeeNameEditText);
@@ -116,6 +120,18 @@ public class applyLeaveRequest extends AppCompatActivity {
             }
         });
 
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(applyLeaveRequest.this, MainActivity.class);
+                intent.putExtra("fragmentToLoad", "HomeFragment"); // Pass the fragment to load
+                startActivity(intent);
+
+                // Finish the current activity
+                finish();
+            }
+        });
+
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -124,7 +140,6 @@ public class applyLeaveRequest extends AppCompatActivity {
                 String startDate = startDateBtn.getText().toString();
                 String endDate = endDateBtn.getText().toString();
                 String leaveReasonText = leaveReason.getText().toString();
-
                 // Create a unique key for the leave request
                 String leaveRequestId = "id" + (new Date()).getTime();
 
@@ -138,36 +153,42 @@ public class applyLeaveRequest extends AppCompatActivity {
                         startDate,
                         endDate,
                         leaveReasonText,
-                        absenceReasonText,  // Updated to use absenceReasonText instead of absenceReason
+                        absenceReasonText,
                         currentDateTime,
                         userID,
                         "Pending",
                         department
                 );
+
                 // Save the EmployeeLeave object to the database
-                databaseReference.child("EmployeeLeave").child(leaveRequestId).setValue(employeeLeave)
-                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            Toast.makeText(getApplicationContext(), "Leave request submitted successfully", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(applyLeaveRequest.this, MainActivity.class);
-                            intent.putExtra("fragmentToLoad", "HomeFragment"); // Pass the fragment to load
-                            startActivity(intent);
-
-                            // Finish the current activity
-                            finish();
-
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(getApplicationContext(), "Failed to submit leave request", Toast.LENGTH_SHORT).show();
-                            Log.e("FirebaseError", "Error writing leave request to Firebase", e);
-                        }
-                    });
+                saveLeaveRequestToFirebase(leaveRequestId, employeeLeave);
             }
         });
+    }
+
+    private void saveLeaveRequestToFirebase(String leaveRequestId, EmployeeLeave employeeLeave) {
+        // Save the EmployeeLeave object to the database
+        DatabaseReference leaveRef = databaseReference.child("EmployeeLeave").child(leaveRequestId);
+        leaveRef.setValue(employeeLeave)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(getApplicationContext(), "Leave request submitted successfully", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(applyLeaveRequest.this, MainActivity.class);
+                        intent.putExtra("fragmentToLoad", "HomeFragment"); // Pass the fragment to load
+                        startActivity(intent);
+
+                        // Finish the current activity
+                        finish();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getApplicationContext(), "Failed to submit leave request", Toast.LENGTH_SHORT).show();
+                        Log.e("FirebaseError", "Error writing leave request to Firebase", e);
+                    }
+                });
     }
 
     private String getCurrentDateTime() {

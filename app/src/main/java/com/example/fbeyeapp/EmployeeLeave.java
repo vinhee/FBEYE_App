@@ -1,126 +1,124 @@
 package com.example.fbeyeapp;
 
-import android.widget.TextView;
-
 public class EmployeeLeave {
-    private String leaveRequestId;
-    private Long employeeId;
-    private String employeeName;
-    private String startDate;
-    private String endDate;
-    private String leaveReason;
-    private String absenceReason;
-    private String leaveID;
-    private String department;
+    private String LeaveRequestId;
+    private Long EmployeeId;
+    private String EmployeeName;
+    private String StartDate;
+    private String EndDate;
+    private String LeaveReason;
+    private String AbsenceReason;
+    private String CurrentDateTime;
+    private String UserId;
+    private String ApprovalStatus;
+    private String Department;
+
+    // Default constructor required for calls to DataSnapshot.getValue(EmployeeLeave.class)
+    public EmployeeLeave() {
+    }
+
+    public EmployeeLeave(String leaveRequestId, Long employeeId, String employeeName,
+                         String startDate, String endDate, String leaveReason,
+                         String absenceReason, String currentDateTime, String userId,
+                         String approvalStatus, String department) {
+        LeaveRequestId = leaveRequestId;
+        EmployeeId = employeeId;
+        EmployeeName = employeeName;
+        StartDate = startDate;
+        EndDate = endDate;
+        LeaveReason = leaveReason;
+        AbsenceReason = absenceReason;
+        CurrentDateTime = currentDateTime;
+        UserId = userId;
+        ApprovalStatus = approvalStatus;
+        Department = department;
+    }
 
     public String getLeaveRequestId() {
-        return leaveRequestId;
+        return LeaveRequestId;
     }
 
     public void setLeaveRequestId(String leaveRequestId) {
-        this.leaveRequestId = leaveRequestId;
+        LeaveRequestId = leaveRequestId;
     }
 
     public Long getEmployeeId() {
-        return employeeId;
+        return EmployeeId;
     }
 
     public void setEmployeeId(Long employeeId) {
-        this.employeeId = employeeId;
+        EmployeeId = employeeId;
     }
 
     public String getEmployeeName() {
-        return employeeName;
+        return EmployeeName;
     }
 
     public void setEmployeeName(String employeeName) {
-        this.employeeName = employeeName;
+        EmployeeName = employeeName;
     }
 
     public String getStartDate() {
-        return startDate;
+        return StartDate;
     }
 
     public void setStartDate(String startDate) {
-        this.startDate = startDate;
+        StartDate = startDate;
     }
 
     public String getEndDate() {
-        return endDate;
+        return EndDate;
     }
 
     public void setEndDate(String endDate) {
-        this.endDate = endDate;
+        EndDate = endDate;
     }
 
     public String getLeaveReason() {
-        return leaveReason;
+        return LeaveReason;
     }
 
     public void setLeaveReason(String leaveReason) {
-        this.leaveReason = leaveReason;
+        LeaveReason = leaveReason;
     }
 
     public String getAbsenceReason() {
-        return absenceReason;
+        return AbsenceReason;
     }
 
     public void setAbsenceReason(String absenceReason) {
-        this.absenceReason = absenceReason;
+        AbsenceReason = absenceReason;
     }
 
-    public String getLeaveID() {
-        return leaveID;
+    public String getCurrentDateTime() {
+        return CurrentDateTime;
     }
 
-    public void setLeaveID(String leaveID) {
-        this.leaveID = leaveID;
+    public void setCurrentDateTime(String currentDateTime) {
+        CurrentDateTime = currentDateTime;
     }
 
-    public String getSubmitDate() {
-        return submitDate;
+    public String getUserId() {
+        return UserId;
     }
 
-    public void setSubmitDate(String submitDate) {
-        this.submitDate = submitDate;
-    }
-
-    public String getUserID() {
-        return userID;
-    }
-
-    public void setUserID(String userID) {
-        this.userID = userID;
+    public void setUserId(String userId) {
+        UserId = userId;
     }
 
     public String getApprovalStatus() {
-        return approvalStatus;
+        return ApprovalStatus;
     }
 
     public void setApprovalStatus(String approvalStatus) {
-        this.approvalStatus = approvalStatus;
+        ApprovalStatus = approvalStatus;
     }
 
-    private String submitDate;
-    private String userID;
-    private String approvalStatus;
-
-    public EmployeeLeave(String leaveID, Long employeeId, String employeeName, String startDate, String endDate, String leaveReason, String absenceReason, String submitDate, String userID, String approvalStatus, String department) {
-        this.leaveID = leaveID;
-        this.employeeId = employeeId;
-        this.employeeName = employeeName;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.leaveReason = leaveReason;
-        this.absenceReason = absenceReason;
-        this.submitDate = submitDate;
-        this.userID = userID;
-        this.approvalStatus = approvalStatus;
-        this.department = department;
+    public String getDepartment() {
+        return Department;
     }
 
-
-
-
-
+    public void setDepartment(String department) {
+        Department = department;
+    }
 }
