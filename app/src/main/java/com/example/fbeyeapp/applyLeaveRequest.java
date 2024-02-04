@@ -128,8 +128,21 @@ public class applyLeaveRequest extends AppCompatActivity {
                 String leaveRequestId = "id" + (new Date()).getTime();
 
                 // Create an EmployeeLeave object
-                EmployeeLeave employeeLeave = new EmployeeLeave(leaveRequestId, employeeId, employeeName, startDate, endDate, leaveReasonText, absenceReason, currentDateTime, userID, "Pending", department);
+                String absenceReasonText = absenceReason.getText().toString();
 
+                EmployeeLeave employeeLeave = new EmployeeLeave(
+                        leaveRequestId,
+                        employeeId,
+                        employeeName,
+                        startDate,
+                        endDate,
+                        leaveReasonText,
+                        absenceReasonText,  // Updated to use absenceReasonText instead of absenceReason
+                        currentDateTime,
+                        userID,
+                        "Pending",
+                        department
+                );
                 // Save the EmployeeLeave object to the database
                 databaseReference.child("EmployeeLeave").child(leaveRequestId).setValue(employeeLeave)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {

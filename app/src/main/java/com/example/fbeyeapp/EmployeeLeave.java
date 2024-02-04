@@ -9,7 +9,7 @@ public class EmployeeLeave {
     private String startDate;
     private String endDate;
     private String leaveReason;
-    private TextView absenceReason;
+    private String absenceReason;
     private String leaveID;
     private String department;
 
@@ -61,11 +61,11 @@ public class EmployeeLeave {
         this.leaveReason = leaveReason;
     }
 
-    public TextView getAbsenceReason() {
+    public String getAbsenceReason() {
         return absenceReason;
     }
 
-    public void setAbsenceReason(TextView absenceReason) {
+    public void setAbsenceReason(String absenceReason) {
         this.absenceReason = absenceReason;
     }
 
@@ -105,7 +105,7 @@ public class EmployeeLeave {
     private String userID;
     private String approvalStatus;
 
-    public EmployeeLeave(String leaveID, Long employeeId, String employeeName, String startDate, String endDate, String leaveReason, TextView absenceReason, String submitDate, String userID, String approvalStatus, String department) {
+    public EmployeeLeave(String leaveID, Long employeeId, String employeeName, String startDate, String endDate, String leaveReason, String absenceReason, String submitDate, String userID, String approvalStatus, String department) {
         this.leaveID = leaveID;
         this.employeeId = employeeId;
         this.employeeName = employeeName;
