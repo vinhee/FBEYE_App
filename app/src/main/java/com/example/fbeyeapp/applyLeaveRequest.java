@@ -1,41 +1,158 @@
 package com.example.fbeyeapp;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class applyLeaveRequest extends AppCompatActivity {
     DatePickerDialog datePickerDialog;
     Button startDateBtn;
     Button endDateBtn;
     Button ApplyLeave;
+    TextView absenceReason;
+
+    Button submitBtn;
+    EditText leaveReason;
 
     // Separate variables for start and end dates
-    private String startDate;
-    private String endDate;
-
+    String startDate;
+    String endDate;
+    Long employeeId;
+    String employeeName;
     // Variable to store the currently selected button
     private Button selectedButton;
+
+    FirebaseAuth mAuth;
+    FirebaseUser currentUser;
+    DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_apply_leave_request);
 
+        mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser();
+        databaseReference = FirebaseDatabase.getInstance().getReference();
+
         startDateBtn = findViewById(R.id.startDateButton);
         endDateBtn = findViewById(R.id.endDateButton);
+        submitBtn = findViewById(R.id.submitButton);
+        absenceReason = findViewById(R.id.AbsenceReason);
+        leaveReason = findViewById(R.id.leaveReason);
 
         startDateBtn.setText(getTodaysDate());
         endDateBtn.setText(getTodaysDate()); // Initialize end date with today's date
         initDatePicker();
 
+        String userID = currentUser.getUid();
+        DatabaseReference employeeRef = databaseReference.child("Employees").child(userID);
+        employeeRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    // Use getValue(Long.class) for numeric data
+                    Long employeeIdLong = snapshot.child("EmployeeID").getValue(Long.class);
+
+                    // Check if employeeId is not null before converting to String
+                    if (employeeIdLong != null) {
+                        // Convert the Long employeeId to String if needed
+                        employeeId = Long.valueOf(String.valueOf(employeeIdLong));
+
+                        // Add log statements to check if values are retrieved
+                        Log.d("FirebaseData", "Employee ID: " + employeeId);
+
+                        // Update references to TextInputEditText with TextViews
+                        EditText employeeIDEditText = findViewById(R.id.employeeIDEditText);
+                        employeeIDEditText.setText(String.valueOf(employeeId));
+
+                    } else {
+                        // Handle the case where the employeeId is null
+                        Log.d("FirebaseData", "Employee ID is null");
+                    }
+
+                    employeeName = snapshot.child("Name").getValue(String.class);
+                    // Add log statements to check if values are retrieved
+                    Log.d("FirebaseData", "Employee Name: " + employeeName);
+
+                    // Update references to TextInputEditText with TextViews
+                    EditText employeeNameEditText = findViewById(R.id.employeeNameEditText);
+                    employeeNameEditText.setText(employeeName);
+                } else {
+                    // Handle the case where the employee details are not found
+                    Toast.makeText(getApplicationContext(), "Employee details not found", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                // Handle error
+            }
+        });
+
+        submitBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String currentDateTime = getCurrentDateTime();
+
+                String startDate = startDateBtn.getText().toString();
+                String endDate = endDateBtn.getText().toString();
+                String leaveReasonText = leaveReason.getText().toString();
+
+                // Create a unique key for the leave request
+                String leaveRequestId = "id" + (new Date()).getTime();
+
+                // Create an EmployeeLeave object
+                EmployeeLeave employeeLeave = new EmployeeLeave(leaveRequestId, employeeId, employeeName, startDate, endDate, leaveReasonText, absenceReason, currentDateTime, userID, "Pending");
+
+                // Save the EmployeeLeave object to the database
+                databaseReference.child("EmployeeLeave").child(leaveRequestId).setValue(employeeLeave)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Toast.makeText(getApplicationContext(), "Leave request submitted successfully", Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(getApplicationContext(), "Failed to submit leave request", Toast.LENGTH_SHORT).show();
+                                Log.e("FirebaseError", "Error writing leave request to Firebase", e);
+                            }
+                        });
+            }
+        });
+    }
+
+    private String getCurrentDateTime() {
+        Calendar calendar = Calendar.getInstance();
+        Date currentDate = calendar.getTime();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy, HH:mm:ss");
+        return dateFormat.format(currentDate);
     }
 
     private String getTodaysDate() {
@@ -76,11 +193,14 @@ public class applyLeaveRequest extends AppCompatActivity {
         int style = AlertDialog.THEME_HOLO_LIGHT;
 
         datePickerDialog = new DatePickerDialog(this, style, dateSetListener, year, month, day);
-        // datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis());
     }
 
     private String makeDateString(int day, int month, int year) {
-        return getMonthFormat(month) + " " + day + " " + year;
+        // Format day and month with leading zeros if needed
+        String formattedDay = (day < 10) ? "0" + day : String.valueOf(day);
+        String formattedMonth = (month < 10) ? "0" + month : String.valueOf(month);
+
+        return formattedDay + "-" + formattedMonth + "-" + year;
     }
 
     private String getMonthFormat(int month) {
