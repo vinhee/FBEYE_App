@@ -39,20 +39,20 @@ public class applyLeave extends AppCompatActivity {
     DatePickerDialog datePickerDialog;
     Button startDateBtn;
     Button endDateBtn;
-    TextView absenceReason;
+    TextView AbsenceReason;
 
     Button submitBtn;
-    EditText mcNO;
-    EditText clinicName;
+    EditText McNO;
+    EditText ClinicName;
     Button uploadImageBtn;
     // Separate variables for start and end dates
-    String startDate;
-    String endDate;
-    Long employeeId;
-    String employeeName;
-    String department;
-    String mcNoText;
-    String clinicNameText;
+    String StartDate;
+    String EndDate;
+    Long EmployeeId;
+    String EmployeeName;
+    String Department;
+    String McNoText;
+    String ClinicNameText;
     Uri selectedImageUri; // Uri to store the selected image
     // Variable to store the currently selected button
     private Button selectedButton;
@@ -75,9 +75,9 @@ public class applyLeave extends AppCompatActivity {
 
         startDateBtn = findViewById(R.id.startDateButton);
         endDateBtn = findViewById(R.id.endDateButton);
-        absenceReason = findViewById(R.id.AbsenceReason);
-        mcNO = findViewById(R.id.mcNo);
-        clinicName = findViewById(R.id.clinicName);
+        AbsenceReason = findViewById(R.id.AbsenceReason);
+        McNO = findViewById(R.id.mcNo);
+        ClinicName = findViewById(R.id.clinicName);
         backBtn = findViewById(R.id.backBtn);
         submitBtn = findViewById(R.id.submitButton);
         uploadImageBtn = findViewById(R.id.uploadImage);
@@ -98,30 +98,30 @@ public class applyLeave extends AppCompatActivity {
                     // Check if employeeId is not null before converting to String
                     if (employeeIdLong != null) {
                         // Convert the Long employeeId to String if needed
-                        employeeId = Long.valueOf(String.valueOf(employeeIdLong));
+                        EmployeeId = Long.valueOf(String.valueOf(employeeIdLong));
 
                         // Add log statements to check if values are retrieved
-                        Log.d("FirebaseData", "Employee ID: " + employeeId);
+                        Log.d("FirebaseData", "Employee ID: " + EmployeeId);
 
                         // Update references to TextInputEditText with TextViews
                         EditText employeeIDEditText = findViewById(R.id.employeeIDEditText);
-                        employeeIDEditText.setText(String.valueOf(employeeId));
+                        employeeIDEditText.setText(String.valueOf(EmployeeId));
                     } else {
                         // Handle the case where the employeeId is null
                         Log.d("FirebaseData", "Employee ID is null");
                     }
 
-                    employeeName = snapshot.child("Name").getValue(String.class);
+                    EmployeeName = snapshot.child("Name").getValue(String.class);
                     // Add log statements to check if values are retrieved
-                    Log.d("FirebaseData", "Employee Name: " + employeeName);
+                    Log.d("FirebaseData", "Employee Name: " + EmployeeName);
 
-                    department = snapshot.child("Department").getValue(String.class);
+                    Department = snapshot.child("Department").getValue(String.class);
                     // Add log statements to check if values are retrieved
-                    Log.d("FirebaseData", "Department: " + department);
+                    Log.d("FirebaseData", "Department: " + Department);
 
                     // Update references to TextInputEditText with TextViews
                     EditText employeeNameEditText = findViewById(R.id.employeeNameEditText);
-                    employeeNameEditText.setText(employeeName);
+                    employeeNameEditText.setText(EmployeeName);
                 } else {
                     // Handle the case where the employee details are not found
                     Toast.makeText(getApplicationContext(), "Employee details not found", Toast.LENGTH_SHORT).show();
@@ -149,37 +149,37 @@ public class applyLeave extends AppCompatActivity {
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String currentDateTime = getCurrentDateTime();
+                String CurrentDateTime = getCurrentDateTime();
 
-                startDate = startDateBtn.getText().toString();
-                endDate = endDateBtn.getText().toString();
-                mcNoText = mcNO.getText().toString();
-                clinicNameText = clinicName.getText().toString();
+                StartDate = startDateBtn.getText().toString();
+                EndDate = endDateBtn.getText().toString();
+                McNoText = McNO.getText().toString();
+                ClinicNameText = ClinicName.getText().toString();
 
                 // Create a unique key for the leave request
-                String leaveRequestId = "id" + (new Date()).getTime();
+                String LeaveRequestId = "id" + (new Date()).getTime();
 
                 // Create an EmployeeLeave object
-                String absenceReasonText = absenceReason.getText().toString();
+                String AbsenceReasonText = AbsenceReason.getText().toString();
 
                 EmployeeLeaveMC employeeLeaveMC = new EmployeeLeaveMC(
-                        leaveRequestId,
-                        employeeId,
-                        employeeName,
-                        startDate,
-                        endDate,
-                        absenceReasonText,
-                        currentDateTime,
+                        LeaveRequestId,
+                        EmployeeId,
+                        EmployeeName,
+                        StartDate,
+                        EndDate,
+                        AbsenceReasonText,
+                        CurrentDateTime,
                         userID,
                         "Pending",
-                        department,
-                        mcNoText,
-                        clinicNameText
+                        Department,
+                        McNoText,
+                        ClinicNameText
                 );
 
 
                 // Save the EmployeeLeave object to the database
-                databaseReference.child("EmployeeLeave").child(leaveRequestId).setValue(employeeLeaveMC)
+                databaseReference.child("EmployeeLeave").child(LeaveRequestId).setValue(employeeLeaveMC)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
@@ -192,7 +192,7 @@ public class applyLeave extends AppCompatActivity {
                                 finish();
 
                                 // Upload the image if selected
-                                uploadImage(leaveRequestId);
+                                uploadImage(LeaveRequestId);
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {
@@ -270,9 +270,9 @@ public class applyLeave extends AppCompatActivity {
 
     private String getCurrentDateTime() {
         Calendar calendar = Calendar.getInstance();
-        Date currentDate = calendar.getTime();
+        Date CurrentDate = calendar.getTime();
         SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy, HH:mm:ss");
-        return dateFormat.format(currentDate);
+        return dateFormat.format(CurrentDate);
     }
 
     private String getTodaysDate() {
@@ -297,9 +297,9 @@ public class applyLeave extends AppCompatActivity {
 
                     // Update the corresponding date variable
                     if (selectedButton.getId() == R.id.startDateButton) {
-                        startDate = date;
+                        StartDate = date;
                     } else if (selectedButton.getId() == R.id.endDateButton) {
-                        endDate = date;
+                        EndDate = date;
                     }
                 }
             }

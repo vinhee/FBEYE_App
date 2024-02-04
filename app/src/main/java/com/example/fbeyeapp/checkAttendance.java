@@ -8,9 +8,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.ClipData;
+import android.content.Intent;
+import android.media.Image;
 import android.media.RouteListingPreference;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -39,6 +44,7 @@ public class checkAttendance extends AppCompatActivity {
     FirebaseAuth mAuth;
 
     FirebaseUser currentUser;
+    ImageView BackBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +63,21 @@ public class checkAttendance extends AppCompatActivity {
         ArrayList clockInList = new ArrayList<>();
         ArrayList clockOutList = new ArrayList<>();
         ArrayList DateList = new ArrayList<>();
+
+        BackBtn = findViewById(R.id.goBack);
+
+        BackBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(checkAttendance.this, MainActivity.class);
+                intent.putExtra("fragmentToLoad", "HomeFragment"); // Pass the fragment to load
+                startActivity(intent);
+
+                // Finish the current activity
+                finish();
+            }
+        });
+
 
         if (currentUser != null) {
             String targetID = currentUser.getUid();
