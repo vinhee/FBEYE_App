@@ -19,6 +19,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -62,6 +63,7 @@ public class ProfileFragment extends Fragment {
     Button logOut;
 
     Uri imagePath;
+    ImageView BackBtn2;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -73,6 +75,16 @@ public class ProfileFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         uploadImage = view.findViewById(R.id.uploadImage);
         logOut = view.findViewById(R.id.logOutBtn);
+        BackBtn2 = view.findViewById(R.id.backBtn2);
+
+        BackBtn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), MainActivity.class);
+                intent.putExtra("fragmentToLoad", "HomeFragment"); // Pass the fragment to load
+                startActivity(intent);
+            }
+        });
 
         logOut.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,7 +100,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent photoIntent = new Intent(Intent.ACTION_PICK);
-                photoIntent.setType("ProfilePicture/*");
+                photoIntent.setType("image/*");
                 startActivityForResult(photoIntent, 1);
             }
         });
@@ -181,7 +193,8 @@ public class ProfileFragment extends Fragment {
         progressDialog.setTitle("Uploading.....");
         progressDialog.show();
 
-        FirebaseStorage.getInstance().getReference("images/" + UUID.randomUUID().toString()).putFile(imagePath)
+        StorageReference ProfilePic = FirebaseStorage.getInstance().getReference("ProfilePicture/" + currentUser.getUid() + ".png");
+        ProfilePic.putFile(imagePath)
                 .addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {

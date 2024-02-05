@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F2F1F7"
+    android:background="#FFFFFF"
     android:textAlignment="center"
     tools:context=".ProfileFragment">
 
@@ -100,7 +100,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/backBtn2"
         android:layout_width="49dp"
         android:layout_height="41dp"
         android:layout_marginStart="16dp"
